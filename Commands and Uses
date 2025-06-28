@@ -1,0 +1,44 @@
+Git Clone "Link"
+-> Used to clone the project into the local machine 
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Touch Dockerfile
+-> Create an empty docker file with file name as Dockerfile which is a standard name 
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+In the Docker file we are using the below configurations :
+
+FROM node:18-alpine            -> image from the dockerhub
+WORKDIR /app                   -> It will create a working directory named app but we have to do cd to get into it at the very first
+COPY . .                       -> Copy everything from source folder (current) to target folder (current in build/runner context).
+RUN yarn install --production  -> It installs only the production dependencies (listed under dependencies in your package.json), excluding development dependencies (devDependencies)
+CMD ["node", "src/index.js"]   -> It tells Docker to run the Node.js application starting from the file src/index.js when a container starts.
+EXPOSE 3000                    -> This will expose the app on the local host port 3000
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker build -t day02-todo .   -> Build the docker image using the application code and Dockerfile, docker build will build the image, -t wil tag the image with the mentioned name,
+                                  "." Uses the current directory as the build context (where the Dockerfile and source code are)
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker images    
+-> It will list all the docker images
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker ps
+-> It will give the information of all the running containers and the details about them 
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker run -dp 3000:3000 username/new-reponame:tagname
+-> To start the docker container
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker exec -it containername sh
+or
+docker exec -it containerid sh
+-> To enter into the container and investigate
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+docker logs containername
+or
+docker logs containerid
+-> To view docker logs 
