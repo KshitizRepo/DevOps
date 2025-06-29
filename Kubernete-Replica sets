@@ -1,0 +1,43 @@
+
+                                                                                            ReplicaSets vs ReplicationControllers:
+
+-> ReplicaSet is the newer and more advanced version of ReplicationController in Kubernetes.
+
+-> ReplicaSet allows the use of label selectors with matchLabels or more complex matchExpressions inside the selector field.
+   This makes it flexible to manage or scale existing pods that match the selector, even if they weren’t originally created by the ReplicaSet.
+
+-> In contrast, ReplicationController only supports simple equality-based selectors and can only manage pods that exactly match its hardcoded labels as defined in its YAML.
+
+-> ReplicationController is now deprecated in favor of ReplicaSet, and Deployments internally use ReplicaSets to manage pod scaling and rolling updates.
+
+Note:- Instead of changing the yaml and then apply it everytime we need to make chnages to the number of replicas,
+       we can directly do changes in the object. Check the below commands and different ways of doing that.
+                
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+                                                                                              Deployments 
+                                                                      Deployments have Replica sets and Replica sets have Nodes and pods
+
+Suppose the Pods are having ngix images with version 1.1
+Now we need to roll out the changes to v1 to v2
+So when we will update the version as the pods are identical we have to roll out the changes to all the pods 
+As we are using the replica sets it will do the changes all at once 
+Because of it there will be a downtime of the application and users will be affected
+
+Suppose it is a big and critical env for example banking application or any other application where time is money
+So we have to make deployments to make sure there is no major downtime 
+Deployment will make the chnages in a rolling update fashion so that the traffic is not affected 
+
+We can also rollback the chnages done by a deployment 
+
+Its gonna be a similar structure in the yaml file but the kind will be { kind: Deployment }
+
+Here we are updating the image to upgrade the version to 1.9.1, using the command below 
+>>kubectl set image deploy/nginx-deploy nginx=nginx:1.9.1
+
+After this we can go ahead and check the changes in terminal or cli by using the command 
+>>kubectl describe deploy/nginx-deploy
+
+After this if we wish to rollback the changs we made in case if anything went wrong using the command below 
+>>kubectl rollout undo deploy/nginx-deploy;
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
