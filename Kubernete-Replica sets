@@ -40,4 +40,29 @@ After this we can go ahead and check the changes in terminal or cli by using the
 
 After this if we wish to rollback the changs we made in case if anything went wrong using the command below 
 >>kubectl rollout undo deploy/nginx-deploy;
+
+-------------Sample yaml----------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    env: demo
+spec:
+  template:
+    metadata:
+      labels:
+        env: demo
+        name: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      env: demo
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________
