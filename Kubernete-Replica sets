@@ -40,6 +40,16 @@ After this we can go ahead and check the changes in terminal or cli by using the
 
 After this if we wish to rollback the changs we made in case if anything went wrong using the command below 
 >>kubectl rollout undo deploy/nginx-deploy;
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+To get the base syntax and the yaml file for deployment, we can use this command:
+
+kubectl create deployment nginx-deploy --image=nginx --dry-run=client -o yaml > nginx-deploy.yaml
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Just to check the syntax in terminal:
+
+kubectl create deployment nginx-deploy --image=nginx --dry-run=client -o yaml;
 
 -------------Sample yaml----------------
 
