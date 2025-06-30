@@ -1,0 +1,7 @@
+                                                  Kubernetes Services:
+-> Cluster IP 
+-> Node Port 30000 to 32767
+-> External Names 
+-> Load Balancer
+-> Namespaces
+
