@@ -49,7 +49,7 @@ ________________________________________________________________________________
 
 Just to check the syntax in terminal:
 
-kubectl create deployment nginx-deploy --image=nginx --dry-run=client -o yaml;
+kubectl create deployment nginx-deploy --image=nginx --dry-run=client -o yaml
 
 -------------Sample yaml----------------
 
