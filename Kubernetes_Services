@@ -5,3 +5,74 @@
 -> Load Balancer
 -> Namespaces
 
+                                                🌐 Kubernetes Services
+A Service is an abstraction that defines a logical set of Pods and a policy by which to access them.
+
+      🟢 1. ClusterIP (Default)
+Exposes the service internally within the Kubernetes cluster.
+Not accessible from outside the cluster.
+Best for internal communication between Pods.
+
+Command:
+
+kubectl expose deployment my-app --port=80 --target-port=8080 --name=my-service
+Access: Pods use my-service:80 within the cluster.
+
+      🟠 2. NodePort
+Exposes the service on each Node’s IP at a static port (30000–32767).
+Accessible from outside the cluster using NodeIP:NodePort.
+Useful for basic external access without a LoadBalancer.
+
+Command:
+
+kubectl expose deployment my-app --type=NodePort --port=80
+Kubernetes assigns a port like 31234. Access it:
+http://<NodeIP>:31234
+
+      🔵 3. LoadBalancer
+Works only in cloud environments (AWS, GCP, Azure).
+Exposes the service externally with a public IP created by the cloud provider’s load balancer.
+Best for production external access.
+
+Command:
+kubectl expose deployment my-app --type=LoadBalancer --port=80
+The cloud provider assigns an external IP.
+
+      🟣 4. ExternalName
+Maps a Service in Kubernetes to an external DNS name.
+Used for connecting Pods to external services.
+Does not create a proxy; it simply returns the CNAME record.
+
+YAML Example:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-external-service
+spec:
+  type: ExternalName
+  externalName: api.example.com
+Access: Pods use my-external-service to reach api.example.com.
+
+      🟡 Namespaces
+Provide a way to partition resources in a Kubernetes cluster.
+Useful for separating teams, environments (dev/test/prod), or projects.
+Default namespace is default.
+
+Commands:
+
+kubectl create namespace dev
+List:
+kubectl get namespaces
+Deploy into namespace:
+
+kubectl create deployment my-app --image=nginx -n dev
+View pods in a namespace:
+
+kubectl get pods -n dev
+
+      ✅ Key Tip for CKA:
+Always check the namespace in questions (--namespace flag).
+Remember NodePort range is 30000–32767.
+Use kubectl describe svc <service-name> to inspect Service details.
+
